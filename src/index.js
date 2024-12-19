@@ -5,12 +5,9 @@ import { addTaskCardToDom, editBtnToggle, handleDarkMode, moveToTooltip, toggleU
 
 import "./style.css";
 import LogoSvg  from "./images/logo.svg";
-import FaviconSvg from "./images/favicon.svg";
 import FaviconPng from "./images/favicon.png";
 
 const linkTag = document.querySelector("link");
-
-
 const logoImg = document.querySelector(".logoImg");
 const signInBtn = document.querySelector(".signInBtn");
 const whenLoggedIn = document.querySelector(".whenLoggedIn");
