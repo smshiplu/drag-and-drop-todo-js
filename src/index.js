@@ -9,7 +9,7 @@ import FaviconSvg from "./images/favicon.svg";
 import FaviconPng from "./images/favicon.png";
 
 const linkTag = document.querySelector("link");
-console.log(linkTag);
+
 
 const logoImg = document.querySelector(".logoImg");
 const signInBtn = document.querySelector(".signInBtn");
@@ -32,8 +32,9 @@ const taskColumns = [pendingCards, ongoingCards, completedCards];
 const provider = new GoogleAuthProvider();
 
 onAuthStateChanged(auth, async user => {
-  if(user) { //User logged in
-    console.log("User logged in");
+  if(user) {
+    // console.log("User logged in");
+
     whenLoggedIn.hidden = false;
     whenLoggedOut.hidden = true;
     logoImg.src = LogoSvg;
@@ -194,11 +195,6 @@ onAuthStateChanged(auth, async user => {
           }
           await addTask(formData);
           form.reset();
-          // const todos = await getAllTask(user.uid);
-          // showCards(todos, index);
-          // render(todos, index)
-
-
         } catch (error) {
           console.log(error);
         }
@@ -220,8 +216,8 @@ onAuthStateChanged(auth, async user => {
     }
 
     
-  } else { //User not logged in
-    console.log("User not logged in");
+  } else { 
+    // console.log("User not logged in");
     whenLoggedIn.hidden = true;
     whenLoggedOut.hidden = false;
     handleDarkMode(themeToggleBtns);

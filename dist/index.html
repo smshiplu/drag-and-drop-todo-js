@@ -3,10 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drag Todo</title>
+  <meta name="description" content="Drag and drop Todo task manager javascript app">
+  <meta name="keywords" content="HTML, CSS, JavaScript, darg_and_drop_task_manager, javascript_todo_app, javascript_task_manager">
+  <meta name="author" content="S M NASIR UDDIN">
+  <link type="image/png" sizes="16x16" rel="icon" href="">
+  <title>Drag and Drop Todo - Js</title>
 </head>
+
 <body>
-  
-  <script src="./index.js"></script>
+  <main>
+    <section class="whenLoggedIn bg-white dark:bg-gray-900 transition-colors duration-300" hidden="true">
+      <div class="py-8 px-4 mx-auto max-w-screen-xl min-h-dvh lg:py-16 lg:px-12">
+          <div class="topMenu relative flex items-center justify-end gap-8">
+            <div class="themeSwitcher relative flex items-center justify-center">
+              <button class="themeToggleBtn moon visible dark:invisible absolute -top-3 left-0">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z"/>
+                </svg>
+              </button>
+              <button class="themeToggleBtn sun invisible dark:visible absolute -top-3 left-0">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M13 3a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0V3ZM6.343 4.929A1 1 0 0 0 4.93 6.343l1.414 1.414a1 1 0 0 0 1.414-1.414L6.343 4.929Zm12.728 1.414a1 1 0 0 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 1.414 1.414l1.414-1.414ZM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-9 4a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2H3Zm16 0a1 1 0 1 0 0 2h2a1 1 0 1 0 0-2h-2ZM7.757 17.657a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414Zm9.9-1.414a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM13 19a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0v-2Z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+            <div class="userMnu  flex items-center justify-center">
+              <button class="userMenuToggleBtn">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                </svg>
+              </button>
+              <ul class="userMenu absolute top-10 right-0 bg-gray-100 dark:bg-gray-700 max-w-56 w-full rounded-lg inline-flex flex-col items-center justify-center p-2 invisible">
+                <li class="userEmail w-full my-1 text-center border-b dark:text-white text-gray-800 border-b-gray-600 pb-2 mb-2 line-clamp-1">example@example.com</li>
+                <li class="w-full my-1">
+                  <button type="button" class="logOutBtn w-full py-2.5 px-5 me-2 text-sm font-medium text-gray-50 focus:outline-none bg-blue-700 rounded-lg border border-blue-200 hover:bg-blue-800 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-900">Sign out</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex items-center justify-center mb-4">
+            <img class="logoImg flex-1 w-20 h-20 center" src="" alt="">
+          </div>
+          <div class="mb-10">
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Drag and Drop Todo</h1>
+            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400 text-center">Simple Draggable Todo Manager</p>
+          </div>
+          <div class="px-4 mx-auto md:max-w-screen-md lg:max-w-screen-lg lg:px-10">
+            <div class="flex flex-col md:flex-row gap-10 justify-evenly items-center md:items-start mt-8 text-gray-500 ">
+              <!-- pending -->
+              <div class="pending bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700 border rounded-md shadow p-2 max-w-xs w-full">
+                <div class="heading flex items-center justify-between my-10">
+                  <h2 class="uppercase font-semibold">Pending</h2>
+                  <span class="taskCount min-w-6 text-center bg-orange-500 p-1 inline-block rounded-lg text-white">10</span>
+                </div>
+                <div class="cards min-h-10"></div>
+                <form class="addForm w-full pt-4 border-t border-t-gray-200 dark:border-t-gray-700">  
+                  <div class="relative">
+                    <input type="search" name="title" maxlength="100" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Task name" required />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                  </div>
+                </form>
+              </div> 
+              <!-- ongoing -->
+              <div class="ongoing bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700 border rounded-md shadow p-2 max-w-xs w-full">
+                <div class="heading flex items-center justify-between my-10">
+                  <h2 class="uppercase font-semibold">Ongoing</h2>
+                  <span class="taskCount min-w-6 text-center bg-orange-500 p-1 inline-block rounded-lg text-white">10</span>
+                </div>
+                <div class="cards min-h-10"></div>
+                <form class="addForm w-full pt-4 border-t border-t-gray-200 dark:border-t-gray-700">  
+                  <div class="relative">
+                    <input name="title" type="search" id="default-search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" maxlength="100" placeholder="Task name" required />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                  </div>
+                </form>
+              </div>
+              <!-- completed -->
+              <div class="completed bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700 border rounded-md shadow p-2 max-w-xs w-full">
+                <div class="heading flex items-center justify-between my-10">
+                  <h2 class="uppercase font-semibold">Completed</h2>
+                  <span class="taskCount min-w-6 text-center bg-orange-500 p-1 inline-block rounded-lg text-white">10</span>
+                </div>
+                <div class="cards min-h-10"></div>
+                <form class="addForm w-full pt-4 border-t border-t-gray-200 dark:border-t-gray-700">  
+                  <div class="relative">
+                    <input name="title" type="search" id="default-search" class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" maxlength="100" placeholder="Task name" required />
+                    <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div> 
+      </div>
+    </section>
+    <section class="whenLoggedOut" hidden="true">
+      <div class="fixed top-0 right-0 bottom-0 left-0 bg-gray-900 bg-opacity-90">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-sm w-full min-h-32 bg-white dark:bg-slate-600 rounded-lg p-4 text-center">
+          <svg class="w-14 h-14 mx-auto" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 48 48">
+            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path><path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path><path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path><path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+          </svg>
+          <p class="dark:text-white text-gray-700">Sign in with google account</p>
+          <button type="button" class="signInBtn w-full text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center dark:focus:ring-[#4285F4]/55 me-2 mt-10">
+            <svg class="w-4 h-4 me-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 48 48">
+              <path fill="#e0e0e0" d="M5.5,40.5h37c1.933,0,3.5-1.567,3.5-3.5V11c0-1.933-1.567-3.5-3.5-3.5h-37C3.567,7.5,2,9.067,2,11v26C2,38.933,3.567,40.5,5.5,40.5z"></path><path fill="#d9d9d9" d="M26,40.5h16.5c1.933,0,3.5-1.567,3.5-3.5V11c0-1.933-1.567-3.5-3.5-3.5h-37C3.567,7.5,2,9.067,2,11L26,40.5z"></path><path fill="#eee" d="M6.745,40.5H42.5c1.933,0,3.5-1.567,3.5-3.5V11.5L6.745,40.5z"></path><path fill="#e0e0e0" d="M25.745,40.5H42.5c1.933,0,3.5-1.567,3.5-3.5V11.5L18.771,31.616L25.745,40.5z"></path><path fill="#ca3737" d="M42.5,9.5h-37C3.567,9.5,2,9.067,2,11v26c0,1.933,1.567,3.5,3.5,3.5H7V12h34v28.5h1.5c1.933,0,3.5-1.567,3.5-3.5V11C46,9.067,44.433,9.5,42.5,9.5z"></path><path fill="#f5f5f5" d="M42.5,7.5H24H5.5C3.567,7.5,2,9.036,2,11c0,1.206,1.518,2.258,1.518,2.258L24,27.756l20.482-14.497c0,0,1.518-1.053,1.518-2.258C46,9.036,44.433,7.5,42.5,7.5z"></path><path fill="#e84f4b" d="M43.246,7.582L24,21L4.754,7.582C3.18,7.919,2,9.297,2,11c0,1.206,1.518,2.258,1.518,2.258L24,27.756l20.482-14.497c0,0,1.518-1.053,1.518-2.258C46,9.297,44.82,7.919,43.246,7.582z"></path>
+            </svg>
+            Gmail sign in
+          </button>
+            
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./assets/bundle.js" type="module"></script>
 </body>
 </html>
